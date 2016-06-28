@@ -1,0 +1,4 @@
+services:
+   agit.logger:
+       class: Agit\LoggingBundle\Service\Logger
+       arguments: ["@doctrine.orm.entity_manager", "@logger"]
