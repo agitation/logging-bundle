@@ -16,6 +16,7 @@ class Logentry
 
     /**
      * @ORM\ManyToOne(targetEntity="Agit\UserBundle\Entity\User")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     protected $user;
 
