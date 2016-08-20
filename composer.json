@@ -6,11 +6,9 @@
         "php": ">=5.4.9",
         "symfony/symfony": "2.8.*",
         "agitation/common-bundle": "dev-master",
-        "agitation/intl-bundle": "dev-master"
-
-    },
-    "suggest": {
-        "agitation/pluggable-bundle": "If a bundle ships its own logging categories, it can register them through a seed plugin."
+        "agitation/pluggable-bundle": "dev-master",
+        "agitation/intl-bundle": "dev-master",
+        "agitation/user-bundle": "dev-master"
     },
     "autoload": {
         "psr-4": {

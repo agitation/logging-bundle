@@ -7,6 +7,7 @@ use Exception;
 use Agit\CommonBundle\Exception\InternalErrorException;
 use Agit\IntlBundle\Service\LocaleService;
 use Agit\LoggingBundle\Entity\Logentry;
+use Agit\UserBundle\Service\UserService;
 use Doctrine\ORM\EntityManager;
 use Agit\UserBundle\Entity\User;
 use Psr\Log\LogLevel;
@@ -17,6 +18,8 @@ class Logger
     private $entityManager;
 
     private $logger;
+
+    private $userService;
 
     private $levels =
     [
@@ -30,13 +33,14 @@ class Logger
         LogLevel::EMERGENCY => 0    // system is unusable
     ];
 
-    public function __construct(EntityManager $entityManager, LoggerInterface $logger)
+    public function __construct(EntityManager $entityManager, LoggerInterface $logger, UserService $userService)
     {
         $this->entityManager = $entityManager;
         $this->logger = $logger;
+        $this->userService = $userService;
     }
 
-    public function log($level, $category, $message, User $user = null)
+    public function log($level, $category, $message, $user = null)
     {
         try
         {
@@ -48,6 +52,12 @@ class Logger
 
             if ($level <= LogLevel::ERROR)
                 $this->logger->log($level, $message);
+
+            if ($user === true)
+                $user = $this->userService->getCurrentUser();
+            elseif ($user !== null && !($user instanceof User))
+                throw new InternalErrorException("The user variable must be either `NULL`, `true` or an instance of `Agit\UserBundle\Entity\User`.");
+
 
             $logentry = new Logentry();
             $logentry->setCreated(new DateTime());
