@@ -31,6 +31,6 @@ class LogentryCategory
      */
     public function getName()
     {
-        return Translate::x($this->name, "logging category");
+        return Translate::x("logging category", $this->name);
     }
 }
