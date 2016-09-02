@@ -4,7 +4,7 @@ namespace Agit\LoggingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Agit\CommonBundle\Entity\GeneratedIdentityAwareTrait;
+use Agit\BaseBundle\Entity\GeneratedIdentityAwareTrait;
 use Agit\UserBundle\Entity\User;
 
 /**
