@@ -5,7 +5,7 @@ namespace Agit\LoggingBundle\Service;
 use DateTime;
 use Exception;
 use Agit\BaseBundle\Exception\InternalErrorException;
-use Agit\IntlBundle\Service\LocaleService;
+use Agit\BaseBundle\Service\LocaleService;
 use Agit\LoggingBundle\Entity\Logentry;
 use Agit\UserBundle\Service\UserService;
 use Doctrine\ORM\EntityManager;
