@@ -1,17 +1,23 @@
 <?php
 
+/*
+ * @package    agitation/logging-bundle
+ * @link       http://github.com/agitation/logging-bundle
+ * @author     Alexander Günsche
+ * @license    http://opensource.org/licenses/MIT
+ */
+
 namespace Agit\LoggingBundle\Service;
 
-use DateTime;
-use Exception;
 use Agit\BaseBundle\Exception\InternalErrorException;
-use Agit\IntlBundle\Service\LocaleService;
 use Agit\LoggingBundle\Entity\Logentry;
-use Agit\UserBundle\Service\UserService;
-use Doctrine\ORM\EntityManager;
 use Agit\UserBundle\Entity\User;
-use Psr\Log\LogLevel;
+use Agit\UserBundle\Service\UserService;
+use DateTime;
+use Doctrine\ORM\EntityManager;
+use Exception;
 use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 
 class Logger
 {
@@ -23,13 +29,13 @@ class Logger
 
     private $levels =
     [
-        LogLevel::DEBUG => 7,       // debug-level messages
-        LogLevel::INFO => 6,        // informational messages
-        LogLevel::NOTICE => 5,      // normal but significant condition
-        LogLevel::WARNING => 4,     // warning conditions
-        LogLevel::ERROR => 3,       // error conditions
-        LogLevel::CRITICAL => 2,    // critical conditions
-        LogLevel::ALERT => 1,       // action must be taken immediately
+        LogLevel::DEBUG     => 7,       // debug-level messages
+        LogLevel::INFO      => 6,        // informational messages
+        LogLevel::NOTICE    => 5,      // normal but significant condition
+        LogLevel::WARNING   => 4,     // warning conditions
+        LogLevel::ERROR     => 3,       // error conditions
+        LogLevel::CRITICAL  => 2,    // critical conditions
+        LogLevel::ALERT     => 1,       // action must be taken immediately
         LogLevel::EMERGENCY => 0    // system is unusable
     ];
 
@@ -42,22 +48,24 @@ class Logger
 
     public function log($level, $category, $message, $user = null)
     {
-        try
-        {
-            if (is_string($level) && isset($this->levels[$level]))
+        try {
+            if (is_string($level) && isset($this->levels[$level])) {
                 $level = $this->levels[$level];
+            }
 
-            if (!in_array($level, $this->levels))
+            if (! in_array($level, $this->levels)) {
                 throw new InternalErrorException(sprintf("Invalid log level: %s", $level));
+            }
 
-            if ($level <= LogLevel::ERROR)
+            if ($level <= LogLevel::ERROR) {
                 $this->logger->log($level, $message);
+            }
 
-            if ($user === true)
+            if ($user === true) {
                 $user = $this->userService->getCurrentUser();
-            elseif ($user !== null && !($user instanceof User))
+            } elseif ($user !== null && ! ($user instanceof User)) {
                 throw new InternalErrorException("The user variable must be either `NULL`, `true` or an instance of `Agit\UserBundle\Entity\User`.");
-
+            }
 
             $logentry = new Logentry();
             $logentry->setCreated(new DateTime());
@@ -67,9 +75,7 @@ class Logger
             $logentry->setUser($user);
             $this->entityManager->persist($logentry);
             $this->entityManager->flush();
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             $this->logger->critical("Failed to add a log message: " . $e->getMessage());
             throw $e;
         }

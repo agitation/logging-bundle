@@ -1,11 +1,18 @@
 <?php
 
+/*
+ * @package    agitation/logging-bundle
+ * @link       http://github.com/agitation/logging-bundle
+ * @author     Alexander Günsche
+ * @license    http://opensource.org/licenses/MIT
+ */
+
 namespace Agit\LoggingBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Agit\BaseBundle\Entity\GeneratedIdentityAwareTrait;
 use Agit\UserBundle\Entity\User;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -45,7 +52,7 @@ class Logentry
     protected $message;
 
     /**
-     * Set created
+     * Set created.
      *
      * @param \DateTime $created
      *
@@ -54,11 +61,12 @@ class Logentry
     public function setCreated($created)
     {
         $this->created = $created;
+
         return $this;
     }
 
     /**
-     * Get created
+     * Get created.
      *
      * @return \DateTime
      */
@@ -68,22 +76,23 @@ class Logentry
     }
 
     /**
-     * Set level
+     * Set level.
      *
-     * @param integer $level
+     * @param int $level
      *
      * @return Logentry
      */
     public function setLevel($level)
     {
         $this->level = $level;
+
         return $this;
     }
 
     /**
-     * Get level
+     * Get level.
      *
-     * @return integer
+     * @return int
      */
     public function getLevel()
     {
@@ -91,7 +100,7 @@ class Logentry
     }
 
     /**
-     * Set message
+     * Set message.
      *
      * @param string $message
      *
@@ -100,11 +109,12 @@ class Logentry
     public function setMessage($message)
     {
         $this->message = $message;
+
         return $this;
     }
 
     /**
-     * Get message
+     * Get message.
      *
      * @return string
      */
@@ -114,7 +124,7 @@ class Logentry
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param User $user
      *
@@ -123,11 +133,12 @@ class Logentry
     public function setUser(User $user = null)
     {
         $this->user = $user;
+
         return $this;
     }
 
     /**
-     * Get user
+     * Get user.
      *
      * @return User
      */
@@ -137,7 +148,7 @@ class Logentry
     }
 
     /**
-     * Set category
+     * Set category.
      *
      * @param LogentryCategory $category
      *
@@ -146,11 +157,12 @@ class Logentry
     public function setCategory(LogentryCategory $category)
     {
         $this->category = $category;
+
         return $this;
     }
 
     /**
-     * Get category
+     * Get category.
      *
      * @return LogentryCategory
      */

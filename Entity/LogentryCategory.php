@@ -1,11 +1,17 @@
 <?php
 
+/*
+ * @package    agitation/logging-bundle
+ * @link       http://github.com/agitation/logging-bundle
+ * @author     Alexander Günsche
+ * @license    http://opensource.org/licenses/MIT
+ */
+
 namespace Agit\LoggingBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Agit\BaseBundle\Entity\IdentityAwareTrait;
-use Agit\UserBundle\Entity\User;
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * @ORM\Entity
  */
@@ -25,7 +31,7 @@ class LogentryCategory
     protected $name;
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */

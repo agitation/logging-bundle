@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * @package    agitation/logging-bundle
+ * @link       http://github.com/agitation/logging-bundle
+ * @author     Alexander Günsche
+ * @license    http://opensource.org/licenses/MIT
+ */
+
 namespace Agit\LoggingBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
