@@ -10,7 +10,7 @@
 namespace Agit\LoggingBundle\Entity;
 
 use Agit\BaseBundle\Entity\GeneratedIdentityAwareTrait;
-use Agit\UserBundle\Entity\User;
+use Agit\UserBundle\Entity\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -22,7 +22,7 @@ class Logentry
     use GeneratedIdentityAwareTrait;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Agit\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Agit\UserBundle\Entity\UserInterface")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     protected $user;
@@ -126,11 +126,11 @@ class Logentry
     /**
      * Set user.
      *
-     * @param User $user
+     * @param UserInterface $user
      *
      * @return Logentry
      */
-    public function setUser(User $user = null)
+    public function setUser(UserInterface $user = null)
     {
         $this->user = $user;
 

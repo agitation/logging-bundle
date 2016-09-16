@@ -11,7 +11,7 @@ namespace Agit\LoggingBundle\Service;
 
 use Agit\BaseBundle\Exception\InternalErrorException;
 use Agit\LoggingBundle\Entity\Logentry;
-use Agit\UserBundle\Entity\User;
+use Agit\UserBundle\Entity\UserInterface;
 use Agit\UserBundle\Service\UserService;
 use DateTime;
 use Doctrine\ORM\EntityManager;
@@ -29,13 +29,13 @@ class Logger
 
     private $levels =
     [
-        LogLevel::DEBUG     => 7,       // debug-level messages
-        LogLevel::INFO      => 6,        // informational messages
-        LogLevel::NOTICE    => 5,      // normal but significant condition
-        LogLevel::WARNING   => 4,     // warning conditions
-        LogLevel::ERROR     => 3,       // error conditions
-        LogLevel::CRITICAL  => 2,    // critical conditions
-        LogLevel::ALERT     => 1,       // action must be taken immediately
+        LogLevel::DEBUG     => 7,   // debug-level messages
+        LogLevel::INFO      => 6,   // informational messages
+        LogLevel::NOTICE    => 5,   // normal but significant condition
+        LogLevel::WARNING   => 4,   // warning conditions
+        LogLevel::ERROR     => 3,   // error conditions
+        LogLevel::CRITICAL  => 2,   // critical conditions
+        LogLevel::ALERT     => 1,   // action must be taken immediately
         LogLevel::EMERGENCY => 0    // system is unusable
     ];
 
@@ -63,8 +63,8 @@ class Logger
 
             if ($user === true) {
                 $user = $this->userService->getCurrentUser();
-            } elseif ($user !== null && ! ($user instanceof User)) {
-                throw new InternalErrorException("The user variable must be either `NULL`, `true` or an instance of `Agit\UserBundle\Entity\User`.");
+            } elseif ($user !== null && ! ($user instanceof UserInterface)) {
+                throw new InternalErrorException("The user variable must be either `NULL`, `true` or an instance of `Agit\UserBundle\Entity\UserInterface`.");
             }
 
             $logentry = new Logentry();
