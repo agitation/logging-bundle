@@ -10,36 +10,27 @@
 namespace Agit\LoggingBundle\Service;
 
 use Agit\BaseBundle\Exception\InternalErrorException;
+use Agit\LoggingBundle\Entity\LevelInterface;
+use Agit\LoggingBundle\Entity\LevelTrait;
 use Agit\LoggingBundle\Entity\Logentry;
 use Agit\UserBundle\Entity\UserInterface;
 use Agit\UserBundle\Service\UserService;
 use DateTime;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Psr\Log\LoggerInterface;
-use Psr\Log\LogLevel;
 
-class Logger
+class Logger implements LevelInterface
 {
+    use LevelTrait;
+
     private $entityManager;
 
     private $logger;
 
     private $userService;
 
-    private $levels =
-    [
-        LogLevel::DEBUG     => 7,   // debug-level messages
-        LogLevel::INFO      => 6,   // informational messages
-        LogLevel::NOTICE    => 5,   // normal but significant condition
-        LogLevel::WARNING   => 4,   // warning conditions
-        LogLevel::ERROR     => 3,   // error conditions
-        LogLevel::CRITICAL  => 2,   // critical conditions
-        LogLevel::ALERT     => 1,   // action must be taken immediately
-        LogLevel::EMERGENCY => 0    // system is unusable
-    ];
-
-    public function __construct(EntityManager $entityManager, LoggerInterface $logger, UserService $userService)
+    public function __construct(EntityManagerInterface $entityManager, LoggerInterface $logger, UserService $userService)
     {
         $this->entityManager = $entityManager;
         $this->logger = $logger;
@@ -49,15 +40,15 @@ class Logger
     public function log($level, $category, $message, $user = null)
     {
         try {
-            if (is_string($level) && isset($this->levels[$level])) {
-                $level = $this->levels[$level];
+            if (is_string($level) && isset($this->availableLevels[$level])) {
+                $level = $this->availableLevels[$level];
             }
 
-            if (! in_array($level, $this->levels)) {
+            if (! in_array($level, $this->availableLevels)) {
                 throw new InternalErrorException(sprintf("Invalid log level: %s", $level));
             }
 
-            if ($level <= LogLevel::ERROR) {
+            if ($level <= LevelInterface::LEVEL_ERROR) {
                 $this->logger->log($level, $message);
             }
 

@@ -10,6 +10,7 @@
 namespace Agit\LoggingBundle\Entity;
 
 use Agit\BaseBundle\Entity\IdentityAwareTrait;
+use Agit\IntlBundle\Tool\Translate;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
