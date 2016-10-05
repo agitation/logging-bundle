@@ -24,27 +24,21 @@ use Agit\LoggingBundle\Entity\LevelTrait;
 
 /**
  * @Object(namespace="syslog.v1")
- * @Depends({"@agit.validation"})
  */
 class SyslogSearch extends AbstractRequestObject implements SearchPaginationInterface, SearchOrderInterface
 {
     use SearchPaginationTrait;
     use SearchPeriodTrait;
-    use LevelTrait;
-
-    private $validator;
-
-    public function __construct(ValidationService $validator)
-    {
-        $this->validator = $validator;
-    }
 
     /**
-     * @Property\ArrayType(nullable=true)
+     * @Property\StringType(allowedValues={"all", "important", "critical"})
      *
-     * Levels filter.
+     * Type of messages to load:
+     * - `all`: all messages, except debug
+     * - `important`: messages with level `notice` or higher
+     * - `critical`: messages with level `error` or higher
      */
-    public $levels;
+    public $type = "all";
 
     /**
      * @Property\StringType(nullable=true)
@@ -52,12 +46,4 @@ class SyslogSearch extends AbstractRequestObject implements SearchPaginationInte
      * A string to seach within the message body.
      */
     public $term;
-
-    public function validate()
-    {
-        parent::validate();
-
-        if (!is_null($this->levels))
-            $this->validator->validateField(Translate::t("Log levels"), "multiSelection", $this->levels, $this->availableLevels);
-    }
 }

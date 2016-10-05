@@ -40,7 +40,7 @@ class Logentry
     protected $level;
 
     /**
-     * @ORM\ManyToOne(targetEntity="LogentryCategory")
+     * @ORM\ManyToOne(targetEntity="LogentryCategory", fetch="EAGER")
      * Assert\Valid
      */
     protected $category;

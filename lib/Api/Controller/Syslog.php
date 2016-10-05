@@ -72,22 +72,17 @@ class Syslog extends AbstractController
             $qb->setParameter("until", $until);
         }
 
-        $levels = $search->get("levels");
+        $type = $search->get("type");
 
-        if (is_array($levels)) {
-            $levelIds = [];
+        if ($type === "error")
+            $maxLevel = LevelInterface::LEVEL_ERROR;
+        elseif ($type === "important")
+            $maxLevel = LevelInterface::LEVEL_NOTICE;
+        else
+            $maxLevel = LevelInterface::LEVEL_INFO;
 
-            foreach ($levels as $level) {
-                $levelIds[] = $this->availableLevels[$level];
-            }
-
-            $qb->andWhere("logentry.level IN (?1)");
-            $qb->setParameter(1, $levelIds);
-        }
-        else {
-            $qb->andWhere("logentry.level != ?1");
-            $qb->setParameter(1, LevelInterface::LEVEL_DEBUG);
-        }
+        $qb->andWhere("logentry.level <= ?1");
+        $qb->setParameter(1, $maxLevel);
 
         $result = [];
 
