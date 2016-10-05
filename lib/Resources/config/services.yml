@@ -2,3 +2,8 @@ services:
    agit.logger:
        class: Agit\LoggingBundle\Service\Logger
        arguments: [ "@doctrine.orm.entity_manager", "@logger", "@agit.user" ]
+
+   agit.logger.cleanup:
+       class: Agit\LoggingBundle\Service\Cleanup
+       arguments: [ "@doctrine.orm.entity_manager" ]
+       tags : [{ name: agit.cronjob, schedule: "48 3 * * *", method: cleanup }]
