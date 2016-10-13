@@ -31,6 +31,7 @@ class SyslogSearch extends AbstractRequestObject implements SearchPaginationInte
     use SearchPeriodTrait;
 
     /**
+     * @Property\Name("Type")
      * @Property\StringType(allowedValues={"all", "important", "critical"})
      *
      * Type of messages to load:
@@ -41,6 +42,7 @@ class SyslogSearch extends AbstractRequestObject implements SearchPaginationInte
     public $type = "all";
 
     /**
+     * @Property\Name("Search term")
      * @Property\StringType(nullable=true)
      *
      * A string to seach within the message body.

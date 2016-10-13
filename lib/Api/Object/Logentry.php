@@ -26,36 +26,37 @@ class Logentry extends AbstractResponseObject
     }
 
     /**
-     * @Property\Name("id")
+     * @Property\Name("ID")
      * @Property\NumberType
      */
     public $id;
 
     /**
+     * @Property\Name("Time")
      * @Property\ObjectType(class="common.v1/DateTime")
      */
     public $created;
 
     /**
-     * @Property\Name("category")
+     * @Property\Name("Category")
      * @Property\ObjectType(class="LogentryCategory")
      */
     public $category;
 
     /**
-     * @Property\Name("user")
+     * @Property\Name("User")
      * @Property\ObjectType(class="User")
      */
     public $user;
 
     /**
-     * @Property\Name("level")
+     * @Property\Name("Level", context="log level")
      * @Property\StringType
      */
     public $level;
 
     /**
-     * @Property\Name("message")
+     * @Property\Name("Message", context="log message")
      * @Property\StringType
      */
     public $message;

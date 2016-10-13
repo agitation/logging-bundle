@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Language: en_GB\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: @AgitLoggingBundle/Api/Object/Logentry.php
+#: @AgitLoggingBundle/Api/Object/LogentryCategory.php
+#: @AgitLoggingBundle/Api/Object/User.php
+msgid "ID"
+msgstr ""
+
+#: @AgitLoggingBundle/Api/Object/Logentry.php
+msgid "Time"
+msgstr ""
+
+#: @AgitLoggingBundle/Api/Object/Logentry.php
+msgid "Category"
+msgstr ""
+
+#: @AgitLoggingBundle/Api/Object/Logentry.php
+msgid "User"
+msgstr ""
+
+#: @AgitLoggingBundle/Api/Object/Logentry.php
+msgctxt "log level"
+msgid "Level"
+msgstr ""
+
+#: @AgitLoggingBundle/Api/Object/Logentry.php
+msgctxt "log message"
+msgid "Message"
+msgstr ""
+
+#: @AgitLoggingBundle/Api/Object/LogentryCategory.php
+#: @AgitLoggingBundle/Api/Object/User.php
+msgid "Name"
+msgstr ""
+
+#: @AgitLoggingBundle/Api/Object/User.php
+msgid "E-mail"
+msgstr ""
+
+#: @AgitLoggingBundle/Api/Object/SyslogSearch.php
+msgid "Type"
+msgstr ""
+
+#: @AgitLoggingBundle/Api/Object/SyslogSearch.php
+msgid "Search term"
+msgstr ""

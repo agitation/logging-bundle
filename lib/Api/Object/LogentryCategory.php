@@ -12,11 +12,13 @@ use Agit\ApiBundle\Api\Object\AbstractResponseObject;
 class LogentryCategory extends AbstractResponseObject
 {
     /**
+     * @Property\Name("ID")
      * @Property\StringType
      */
     public $id;
 
     /**
+     * @Property\Name("Name")
      * @Property\StringType
      */
     public $name;
