@@ -9,17 +9,10 @@
 
 namespace Agit\LoggingBundle\Service;
 
-use DateInterval;
-use Agit\BaseBundle\Exception\InternalErrorException;
-use Agit\LoggingBundle\Entity\LevelInterface;
-use Agit\LoggingBundle\Entity\LevelTrait;
 use Agit\LoggingBundle\Entity\Logentry;
-use Agit\UserBundle\Entity\UserInterface;
-use Agit\UserBundle\Service\UserService;
+use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
-use Psr\Log\LoggerInterface;
 
 class Cleanup
 {

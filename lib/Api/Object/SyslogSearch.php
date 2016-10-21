@@ -11,16 +11,11 @@ namespace Agit\LoggingBundle\Api\Object;
 
 use Agit\ApiBundle\Annotation\Object\Object;
 use Agit\ApiBundle\Annotation\Property;
-use Agit\ApiBundle\Api\Object\SearchOrderTrait;
-use Agit\ApiBundle\Api\Object\SearchPeriodTrait;
-use Agit\ApiBundle\Api\Object\SearchPaginationTrait;
 use Agit\ApiBundle\Api\Object\AbstractRequestObject;
-use Agit\ApiBundle\Api\Object\SearchPaginationInterface;
 use Agit\ApiBundle\Api\Object\SearchOrderInterface;
-use Agit\ApiBundle\Annotation\Depends;
-use Agit\IntlBundle\Tool\Translate;
-use Agit\ValidationBundle\ValidationService;
-use Agit\LoggingBundle\Entity\LevelTrait;
+use Agit\ApiBundle\Api\Object\SearchPaginationInterface;
+use Agit\ApiBundle\Api\Object\SearchPaginationTrait;
+use Agit\ApiBundle\Api\Object\SearchPeriodTrait;
 
 /**
  * @Object(namespace="syslog.v1")

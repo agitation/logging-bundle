@@ -1,14 +1,21 @@
 <?php
 
+/*
+ * @package    agitation/logging-bundle
+ * @link       http://github.com/agitation/logging-bundle
+ * @author     Alexander Günsche
+ * @license    http://opensource.org/licenses/MIT
+ */
+
 namespace Agit\LoggingBundle\Api\Object;
 
-use DateTimeZone;
+use Agit\ApiBundle\Annotation\Depends;
 use Agit\ApiBundle\Annotation\Object;
 use Agit\ApiBundle\Annotation\Property;
 use Agit\ApiBundle\Api\Object\AbstractResponseObject;
 use Agit\LoggingBundle\Entity\LevelTrait;
-use Agit\ApiBundle\Annotation\Depends;
 use Agit\SettingBundle\Service\SettingService;
+use DateTimeZone;
 
 /**
  * @Object\Object(namespace="syslog.v1")
@@ -72,6 +79,5 @@ class Logentry extends AbstractResponseObject
         $created = clone $logentry->getCreated();
         $created->setTimezone(new DateTimeZone($timezone));
         $this->created = $this->createObject("common.v1/DateTime", $created);
-
     }
 }
