@@ -7,7 +7,7 @@ msgstr ""
 #: @AgitLoggingBundle/Api/Object/LogentryCategory.php
 #: @AgitLoggingBundle/Api/Object/User.php
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: @AgitLoggingBundle/Api/Object/Logentry.php
 msgid "Time"
@@ -34,7 +34,7 @@ msgstr ""
 #: @AgitLoggingBundle/Api/Object/LogentryCategory.php
 #: @AgitLoggingBundle/Api/Object/User.php
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: @AgitLoggingBundle/Api/Object/User.php
 msgid "E-mail"
