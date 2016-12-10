@@ -13,7 +13,7 @@ use Agit\BaseBundle\Exception\InternalErrorException;
 use Agit\LoggingBundle\Entity\LevelInterface;
 use Agit\LoggingBundle\Entity\LevelTrait;
 use Agit\LoggingBundle\Entity\Logentry;
-use Agit\UserBundle\Entity\UserInterface;
+use Agit\UserBundle\Entity\PrimaryUserInterface;
 use Agit\UserBundle\Service\UserService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -54,8 +54,8 @@ class Logger implements LevelInterface
 
             if ($user === true) {
                 $user = $this->userService->getCurrentUser();
-            } elseif ($user !== null && ! ($user instanceof UserInterface)) {
-                throw new InternalErrorException("The user variable must be either `NULL`, `true` or an instance of `Agit\UserBundle\Entity\UserInterface`.");
+            } elseif ($user !== null && ! ($user instanceof PrimaryUserInterface)) {
+                throw new InternalErrorException("The user variable must be either `NULL`, `true` or an instance of `Agit\UserBundle\Entity\PrimaryUserInterface`.");
             }
 
             $logentry = new Logentry();
