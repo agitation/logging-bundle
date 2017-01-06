@@ -41,6 +41,7 @@ class Logentry
 
     /**
      * @ORM\ManyToOne(targetEntity="LogentryCategory", fetch="EAGER")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      * Assert\Valid
      */
     protected $category;
