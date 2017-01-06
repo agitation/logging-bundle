@@ -10,7 +10,7 @@
 namespace Agit\LoggingBundle\Service;
 
 use Agit\IntlBundle\Tool\Translate;
-use Agit\LoggingBundle\Entity\LevelInterface;
+use Psr\Log\LogLevel;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 
 class ExceptionLogger
@@ -33,6 +33,6 @@ class ExceptionLogger
             $e->getLine()
         );
 
-        $this->logger->log(LevelInterface::LEVEL_ERROR, "agit.internal", $message);
+        $this->logger->log(LogLevel::ALERT, "agit.internal", $message, true);
     }
 }

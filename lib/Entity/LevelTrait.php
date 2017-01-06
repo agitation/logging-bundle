@@ -15,7 +15,7 @@ trait LevelTrait
 {
     protected $availableLevels =
     [
-        LogLevel::DEBUG     => LevelInterface::LEVEL_DEBUG,     // debug-level messages
+        LogLevel::DEBUG     => LevelInterface::LEVEL_DEBUG,     // debug messages
         LogLevel::INFO      => LevelInterface::LEVEL_INFO,      // informational messages
         LogLevel::NOTICE    => LevelInterface::LEVEL_NOTICE,    // normal but significant condition
         LogLevel::WARNING   => LevelInterface::LEVEL_WARNING,   // warning conditions

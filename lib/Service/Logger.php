@@ -19,6 +19,8 @@ use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
+use Tixys\CoreBundle\Entity\User;
 
 class Logger implements LevelInterface
 {
@@ -26,31 +28,31 @@ class Logger implements LevelInterface
 
     private $entityManager;
 
-    private $logger;
+    private $fallbackLogger;
 
     private $userService;
 
-    public function __construct(EntityManagerInterface $entityManager, LoggerInterface $logger, UserService $userService)
+    public function __construct(EntityManagerInterface $entityManager, LoggerInterface $fallbackLogger, UserService $userService)
     {
         $this->entityManager = $entityManager;
-        $this->logger = $logger;
+        $this->fallbackLogger = $fallbackLogger;
         $this->userService = $userService;
     }
 
+    /**
+     * @param string                    $level    a string provided through a PSR LogLevel constant
+     * @param string                    $category the ID of a registered log category
+     * @param string                    $message  the actual log message
+     * @param PrimaryUserInterface|null $user     the user who caused this action
+     */
     public function log($level, $category, $message, $user = null)
     {
         try {
-            if (is_string($level) && isset($this->availableLevels[$level])) {
-                $level = $this->availableLevels[$level];
-            }
-
-            if (! in_array($level, $this->availableLevels)) {
+            if (! is_string($level) || ! isset($this->availableLevels[$level])) {
                 throw new InternalErrorException(sprintf("Invalid log level: %s", $level));
             }
 
-            if ($level <= LevelInterface::LEVEL_ERROR) {
-                $this->logger->log($level, $message);
-            }
+            $levelKey = $this->availableLevels[$level];
 
             if ($user === true) {
                 $user = $this->userService->getCurrentUser();
@@ -60,14 +62,14 @@ class Logger implements LevelInterface
 
             $logentry = new Logentry();
             $logentry->setCreated(new DateTime());
-            $logentry->setLevel($level);
+            $logentry->setLevel($levelKey);
             $logentry->setCategory($this->entityManager->getReference("AgitLoggingBundle:LogentryCategory", $category));
             $logentry->setMessage($message);
             $logentry->setUser($user);
             $this->entityManager->persist($logentry);
             $this->entityManager->flush();
         } catch (Exception $e) {
-            $this->logger->critical("Failed to add a log message: " . $e->getMessage());
+            $this->fallbackLogger->critical(sprintf("Failed to add a log message: %s. Original log entry was: %s", $e->getMessage(), $message));
             throw $e;
         }
     }
