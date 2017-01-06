@@ -1,9 +1,19 @@
 services:
-   agit.logger:
-       class: Agit\LoggingBundle\Service\Logger
-       arguments: [ "@doctrine.orm.entity_manager", "@logger", "@agit.user" ]
+    agit.logger:
+        class: Agit\LoggingBundle\Service\Logger
+        arguments: [ "@doctrine.orm.entity_manager", "@logger", "@agit.user" ]
 
-   agit.logger.cleanup:
-       class: Agit\LoggingBundle\Service\Cleanup
-       arguments: [ "@doctrine.orm.entity_manager" ]
-       tags : [{ name: agit.cronjob, schedule: "48 3 * * *", method: cleanup }]
+    agit.logger.cleanup:
+        class: Agit\LoggingBundle\Service\Cleanup
+        arguments: [ "@doctrine.orm.entity_manager" ]
+        tags : [{ name: agit.cronjob, schedule: "48 3 * * *", method: cleanup }]
+
+    agit.logger.exception:
+        class: Agit\LoggingBundle\Service\ExceptionLogger
+        arguments: [ "@agit.logger" ]
+        tags : [{  name: kernel.event_listener, event: kernel.exception, method: logException }]
+
+    agit.logger.seed.logentry_category:
+        private: true
+        class: Agit\LoggingBundle\Service\LogentryCategorySeed
+        tags: [{ name: kernel.event_listener, event: agit.seed, method: registerSeed }]
