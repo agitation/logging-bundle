@@ -3,6 +3,15 @@ msgstr ""
 "Language: en_US\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
+#: @AgitLoggingBundle/Service/LogentryCategorySeed.php:21
+msgctxt "logging category"
+msgid "Internal"
+msgstr ""
+
+#: @AgitLoggingBundle/Service/ExceptionLogger.php:30
+msgid "Exception `%s` in file %s at line %s."
+msgstr ""
+
 #: @AgitLoggingBundle/Api/Object/Logentry.php
 #: @AgitLoggingBundle/Api/Object/LogentryCategory.php
 #: @AgitLoggingBundle/Api/Object/User.php
