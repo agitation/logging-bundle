@@ -9,6 +9,7 @@
 
 namespace Agit\LoggingBundle\Service;
 
+use Agit\BaseBundle\Exception\PublicException;
 use Agit\IntlBundle\Tool\Translate;
 use Psr\Log\LogLevel;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
@@ -26,13 +27,15 @@ class ExceptionLogger
     {
         $e = $event->getException();
 
-        $message = sprintf(
-            Translate::t("Exception `%s` in file %s at line %s."),
-            $e->getMessage(),
-            $e->getFile(),
-            $e->getLine()
-        );
+        if (! ($e instanceof PublicException)) {
+            $message = sprintf(
+                Translate::t("Exception `%s` in file %s at line %s."),
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            );
 
-        $this->logger->log(LogLevel::ALERT, "agit.internal", $message, true);
+            $this->logger->log(LogLevel::ALERT, "agit.internal", $message, true);
+        }
     }
 }
