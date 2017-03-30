@@ -13,6 +13,7 @@ use Agit\ApiBundle\Annotation\Depends;
 use Agit\ApiBundle\Annotation\Object;
 use Agit\ApiBundle\Annotation\Property;
 use Agit\ApiBundle\Api\Object\AbstractResponseObject;
+use Agit\ApiBundle\Api\Object\IdTrait;
 use Agit\LoggingBundle\Entity\LevelTrait;
 use Agit\SettingBundle\Service\SettingService;
 use DateTimeZone;
@@ -23,6 +24,7 @@ use DateTimeZone;
  */
 class Logentry extends AbstractResponseObject
 {
+    use IdTrait;
     use LevelTrait;
 
     private $settingService;
@@ -31,12 +33,6 @@ class Logentry extends AbstractResponseObject
     {
         $this->settingService = $settingService;
     }
-
-    /**
-     * @Property\Name("ID")
-     * @Property\NumberType
-     */
-    public $id;
 
     /**
      * @Property\Name("Time")

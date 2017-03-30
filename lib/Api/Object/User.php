@@ -12,23 +12,16 @@ namespace Agit\LoggingBundle\Api\Object;
 use Agit\ApiBundle\Annotation\Object;
 use Agit\ApiBundle\Annotation\Property;
 use Agit\ApiBundle\Api\Object\AbstractResponseObject;
+use Agit\ApiBundle\Api\Object\IdTrait;
+use Agit\ApiBundle\Api\Object\NameTrait;
 
 /**
  * @Object\Object(namespace="syslog.v1")
  */
 class User extends AbstractResponseObject
 {
-    /**
-     * @Property\Name("ID")
-     * @Property\NumberType
-     */
-    public $id;
-
-    /**
-     * @Property\Name("Name")
-     * @Property\StringType
-     */
-    public $name;
+    use IdTrait;
+    use NameTrait;
 
     /**
      * @Property\Name("E-mail")
