@@ -8,15 +8,9 @@ msgctxt "logging category"
 msgid "Internal"
 msgstr "Intern"
 
-#: @AgitLoggingBundle/Service/ExceptionLogger.php:30
+#: @AgitLoggingBundle/Service/ExceptionLogger.php:32
 msgid "Exception `%s` in file %s at line %s."
 msgstr "Fehler `%s` in Datei %s in Zeile %s."
-
-#: @AgitLoggingBundle/Api/Object/Logentry.php
-#: @AgitLoggingBundle/Api/Object/LogentryCategory.php
-#: @AgitLoggingBundle/Api/Object/User.php
-msgid "ID"
-msgstr "ID"
 
 #: @AgitLoggingBundle/Api/Object/Logentry.php
 msgid "Time"
@@ -41,7 +35,10 @@ msgid "Message"
 msgstr "Meldung"
 
 #: @AgitLoggingBundle/Api/Object/LogentryCategory.php
-#: @AgitLoggingBundle/Api/Object/User.php
+msgid "ID"
+msgstr "ID"
+
+#: @AgitLoggingBundle/Api/Object/LogentryCategory.php
 msgid "Name"
 msgstr "Name"
 
