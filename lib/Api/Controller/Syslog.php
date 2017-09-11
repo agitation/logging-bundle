@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /*
  * @package    agitation/logging-bundle
  * @link       http://github.com/agitation/logging-bundle
@@ -46,47 +46,55 @@ class Syslog extends AbstractController
     public function search(SyslogSearch $search)
     {
         $qb = $this->entityManager->createQueryBuilder()
-            ->select("logentry")->from("AgitLoggingBundle:Logentry", "logentry")
-            ->setFirstResult($search->get("offset"))
-            ->setMaxResults($search->get("limit"))
-            ->orderBy("logentry.created", "desc");
+            ->select('logentry')->from('AgitLoggingBundle:Logentry', 'logentry')
+            ->setFirstResult($search->get('offset'))
+            ->setMaxResults($search->get('limit'))
+            ->orderBy('logentry.created', 'desc');
 
-        if ($term = $search->get("term")) {
-            $qb->andWhere("logentry.message LIKE :term");
-            $qb->setParameter("term", "%$term%");
+        if ($term = $search->get('term'))
+        {
+            $qb->andWhere('logentry.message LIKE :term');
+            $qb->setParameter('term', "%$term%");
         }
 
-        $localTimezone = new DateTimeZone($this->settingService->getValueOf("agit.timezone"));
-        $utcTimezone = new DateTimeZone("UTC");
+        $localTimezone = new DateTimeZone($this->settingService->getValueOf('agit.timezone'));
+        $utcTimezone = new DateTimeZone('UTC');
 
-        if ($period = $search->get("period")) {
-            $from = new DateTime($period->get("from")->__toString() . " 00:00:00", $localTimezone);
-            $until = new DateTime($period->get("until")->__toString() . " 23:59:59", $localTimezone);
+        if ($period = $search->get('period'))
+        {
+            $from = new DateTime($period->get('from')->__toString() . ' 00:00:00', $localTimezone);
+            $until = new DateTime($period->get('until')->__toString() . ' 23:59:59', $localTimezone);
             $from->setTimezone($utcTimezone);
             $until->setTimezone($utcTimezone);
 
-            $qb->andWhere($qb->expr()->between("logentry.created", ":from", ":until"));
-            $qb->setParameter("from", $from);
-            $qb->setParameter("until", $until);
+            $qb->andWhere($qb->expr()->between('logentry.created', ':from', ':until'));
+            $qb->setParameter('from', $from);
+            $qb->setParameter('until', $until);
         }
 
-        $type = $search->get("type");
+        $type = $search->get('type');
 
-        if ($type === "error") {
+        if ($type === 'error')
+        {
             $maxLevel = LevelInterface::LEVEL_ERROR;
-        } elseif ($type === "important") {
+        }
+        elseif ($type === 'important')
+        {
             $maxLevel = LevelInterface::LEVEL_NOTICE;
-        } else {
+        }
+        else
+        {
             $maxLevel = LevelInterface::LEVEL_INFO;
         }
 
-        $qb->andWhere("logentry.level <= ?1");
+        $qb->andWhere('logentry.level <= ?1');
         $qb->setParameter(1, $maxLevel);
 
         $result = [];
 
-        foreach ($qb->getQuery()->getResult() as $logentry) {
-            $result[] = $this->createObject("Logentry", $logentry);
+        foreach ($qb->getQuery()->getResult() as $logentry)
+        {
+            $result[] = $this->createObject('Logentry', $logentry);
         }
 
         return $result;

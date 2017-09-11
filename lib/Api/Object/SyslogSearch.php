@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /*
  * @package    agitation/logging-bundle
  * @link       http://github.com/agitation/logging-bundle
@@ -34,7 +34,7 @@ class SyslogSearch extends AbstractRequestObject implements SearchPaginationInte
      * - `important`: messages with level `notice` or higher
      * - `critical`: messages with level `error` or higher
      */
-    public $type = "all";
+    public $type = 'all';
 
     /**
      * @Property\Name("Search term")

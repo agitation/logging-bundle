@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /*
  * @package    agitation/logging-bundle
  * @link       http://github.com/agitation/logging-bundle
@@ -17,8 +17,8 @@ class LogentryCategorySeed
     public function registerSeed(SeedEvent $event)
     {
         $event->addSeedEntry(
-            "AgitLoggingBundle:LogentryCategory",
-            ["id" => "agit.internal", "name" => Translate::noopX("logging category", "Internal")]
+            'AgitLoggingBundle:LogentryCategory',
+            ['id' => 'agit.internal', 'name' => Translate::noopX('logging category', 'Internal')]
         );
     }
 }

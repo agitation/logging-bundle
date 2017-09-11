@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /*
  * @package    agitation/logging-bundle
  * @link       http://github.com/agitation/logging-bundle
@@ -47,29 +47,37 @@ class Logger implements LevelInterface
      */
     public function log($level, $category, $message, $user = null)
     {
-        try {
-            if (! is_string($level) || ! isset($this->availableLevels[$level])) {
-                throw new InternalErrorException(sprintf("Invalid log level: %s", $level));
+        try
+        {
+            if (! is_string($level) || ! isset($this->availableLevels[$level]))
+            {
+                throw new InternalErrorException(sprintf('Invalid log level: %s', $level));
             }
 
             $levelKey = $this->availableLevels[$level];
 
-            if ($user === true) {
+            if ($user === true)
+            {
                 $user = $this->userService->getCurrentUser();
-            } elseif ($user !== null && ! ($user instanceof PrimaryUserInterface)) {
+            }
+            elseif ($user !== null && ! ($user instanceof PrimaryUserInterface))
+            {
                 throw new InternalErrorException("The user variable must be either `NULL`, `true` or an instance of `Agit\UserBundle\Entity\PrimaryUserInterface`.");
             }
 
             $logentry = new Logentry();
             $logentry->setCreated(new DateTime());
             $logentry->setLevel($levelKey);
-            $logentry->setCategory($this->entityManager->getReference("AgitLoggingBundle:LogentryCategory", $category));
+            $logentry->setCategory($this->entityManager->getReference('AgitLoggingBundle:LogentryCategory', $category));
             $logentry->setMessage($message);
             $logentry->setUser($user);
             $this->entityManager->persist($logentry);
             $this->entityManager->flush();
-        } catch (Exception $e) {
-            $this->fallbackLogger->critical(sprintf("Failed to add a log message: %s. Original log entry was: %s", $e->getMessage(), $message));
+        }
+        catch (Exception $e)
+        {
+            $this->fallbackLogger->critical(sprintf('Failed to add a log message: %s. Original log entry was: %s', $e->getMessage(), $message));
+
             throw $e;
         }
     }

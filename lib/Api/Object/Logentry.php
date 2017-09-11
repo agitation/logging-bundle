@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /*
  * @package    agitation/logging-bundle
  * @link       http://github.com/agitation/logging-bundle
@@ -26,13 +26,6 @@ class Logentry extends AbstractResponseObject
 {
     use IdTrait;
     use LevelTrait;
-
-    private $settingService;
-
-    public function __construct(SettingService $settingService)
-    {
-        $this->settingService = $settingService;
-    }
 
     /**
      * @Property\Name("Time")
@@ -64,6 +57,13 @@ class Logentry extends AbstractResponseObject
      */
     public $message;
 
+    private $settingService;
+
+    public function __construct(SettingService $settingService)
+    {
+        $this->settingService = $settingService;
+    }
+
     public function fill($logentry)
     {
         parent::fill($logentry);
@@ -71,9 +71,9 @@ class Logentry extends AbstractResponseObject
         $availableLevels = array_flip($this->availableLevels);
         $this->level = $availableLevels[$logentry->getLevel()];
 
-        $timezone = $this->settingService->getValueOf("agit.timezone");
+        $timezone = $this->settingService->getValueOf('agit.timezone');
         $created = clone $logentry->getCreated();
         $created->setTimezone(new DateTimeZone($timezone));
-        $this->created = $this->createObject("common.v1/DateTime", $created);
+        $this->created = $this->createObject('common.v1/DateTime', $created);
     }
 }

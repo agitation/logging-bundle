@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /*
  * @package    agitation/logging-bundle
  * @link       http://github.com/agitation/logging-bundle
@@ -27,15 +27,16 @@ class ExceptionLogger
     {
         $e = $event->getException();
 
-        if (! ($e instanceof PublicException)) {
+        if (! ($e instanceof PublicException))
+        {
             $message = sprintf(
-                Translate::t("Exception `%s` in file %s at line %s."),
+                Translate::t('Exception `%s` in file %s at line %s.'),
                 $e->getMessage(),
                 $e->getFile(),
                 $e->getLine()
             );
 
-            $this->logger->log(LogLevel::ALERT, "agit.internal", $message, true);
+            $this->logger->log(LogLevel::ALERT, 'agit.internal', $message, true);
         }
     }
 }

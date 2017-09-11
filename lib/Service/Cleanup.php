@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /*
  * @package    agitation/logging-bundle
  * @link       http://github.com/agitation/logging-bundle
@@ -27,12 +27,12 @@ class Cleanup
 
     public function cleanup()
     {
-        $date = (new DateTime())->sub(new DateInterval(sprintf("P%sD", self::TTL)));
+        $date = (new DateTime())->sub(new DateInterval(sprintf('P%sD', self::TTL)));
 
         $this->entityManager->createQueryBuilder()
-            ->delete("AgitLoggingBundle:Logentry", "logentry")
-            ->where("logentry.created <= :date")
-            ->setParameter("date", $date)
+            ->delete('AgitLoggingBundle:Logentry', 'logentry')
+            ->where('logentry.created <= :date')
+            ->setParameter('date', $date)
             ->getQuery()->execute();
     }
 }
