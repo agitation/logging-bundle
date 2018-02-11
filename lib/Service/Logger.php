@@ -45,7 +45,7 @@ class Logger implements LevelInterface
      * @param string                    $message  the actual log message
      * @param PrimaryUserInterface|null $user     the user who caused this action
      */
-    public function log($level, $category, $message, $user = null)
+    public function addEntry($level, $category, $message, $user = null)
     {
         try
         {
@@ -72,12 +72,31 @@ class Logger implements LevelInterface
             $logentry->setMessage($message);
             $logentry->setUser($user);
             $this->entityManager->persist($logentry);
-            $this->entityManager->flush();
         }
         catch (Exception $e)
         {
             $this->fallbackLogger->critical(sprintf('Failed to add a log message: %s. Original log entry was: %s', $e->getMessage(), $message));
 
+            throw $e;
+        }
+    }
+
+    /**
+     * @param string                    $level    a string provided through a PSR LogLevel constant
+     * @param string                    $category the ID of a registered log category
+     * @param string                    $message  the actual log message
+     * @param PrimaryUserInterface|null $user     the user who caused this action
+     */
+    public function log($level, $category, $message, $user = null)
+    {
+        try
+        {
+            $this->addEntry($level, $category, $message, $user);
+            $this->entityManager->flush();
+        }
+        catch (Exception $e)
+        {
+            $this->fallbackLogger->critical(sprintf('Failed to add a log message: %s. Original log entry was: %s', $e->getMessage(), $message));
             throw $e;
         }
     }
