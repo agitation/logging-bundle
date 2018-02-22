@@ -43,9 +43,8 @@ class Logger implements LevelInterface
      * @param string                    $level    a string provided through a PSR LogLevel constant
      * @param string                    $category the ID of a registered log category
      * @param string                    $message  the actual log message
-     * @param PrimaryUserInterface|null $user     the user who caused this action
      */
-    public function addEntry($level, $category, $message, $user = null)
+    public function addEntry($level, $category, $message)
     {
         try
         {
@@ -54,29 +53,17 @@ class Logger implements LevelInterface
                 throw new InternalErrorException(sprintf('Invalid log level: %s', $level));
             }
 
-            $levelKey = $this->availableLevels[$level];
-
-            if ($user === true)
-            {
-                $user = $this->userService->getCurrentUser();
-            }
-            elseif ($user !== null && ! ($user instanceof PrimaryUserInterface))
-            {
-                throw new InternalErrorException("The user variable must be either `NULL`, `true` or an instance of `Agit\UserBundle\Entity\PrimaryUserInterface`.");
-            }
-
             $logentry = new Logentry();
             $logentry->setCreated(new DateTime());
-            $logentry->setLevel($levelKey);
+            $logentry->setLevel($this->availableLevels[$level]);
             $logentry->setCategory($this->entityManager->getReference('AgitLoggingBundle:LogentryCategory', $category));
             $logentry->setMessage($message);
-            $logentry->setUser($user);
+            $logentry->setUser($this->userService->getCurrentUser() ?: null);
             $this->entityManager->persist($logentry);
         }
         catch (Exception $e)
         {
             $this->fallbackLogger->critical(sprintf('Failed to add a log message: %s. Original log entry was: %s', $e->getMessage(), $message));
-
             throw $e;
         }
     }
@@ -85,13 +72,12 @@ class Logger implements LevelInterface
      * @param string                    $level    a string provided through a PSR LogLevel constant
      * @param string                    $category the ID of a registered log category
      * @param string                    $message  the actual log message
-     * @param PrimaryUserInterface|null $user     the user who caused this action
      */
-    public function log($level, $category, $message, $user = null)
+    public function log($level, $category, $message)
     {
         try
         {
-            $this->addEntry($level, $category, $message, $user);
+            $this->addEntry($level, $category, $message);
             $this->entityManager->flush();
         }
         catch (Exception $e)

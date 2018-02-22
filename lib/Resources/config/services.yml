@@ -9,6 +9,7 @@ services:
         tags : [{ name: agit.cronjob, schedule: "48 3 * * *", method: cleanup }]
 
     agit.logger.exception:
+        private: true
         class: Agit\LoggingBundle\Service\ExceptionLogger
         arguments: [ "@agit.logger" ]
         tags : [{  name: kernel.event_listener, event: kernel.exception, method: logException }]
@@ -17,3 +18,6 @@ services:
         private: true
         class: Agit\LoggingBundle\Service\LogentryCategorySeed
         tags: [{ name: kernel.event_listener, event: agit.seed, method: registerSeed }]
+
+    # alias
+    Agit\LoggingBundle\Service\Logger: "@agit.logger"
