@@ -14,6 +14,8 @@ use Agit\IntlBundle\Tool\Translate;
 use Psr\Log\LogLevel;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+
 class ExceptionLogger
 {
     private $logger;
@@ -27,7 +29,7 @@ class ExceptionLogger
     {
         $e = $event->getException();
 
-        if (! ($e instanceof PublicException))
+        if (! ($e instanceof HttpExceptionInterface && $e->getStatusCode() < 500))
         {
             $message = sprintf(
                 Translate::t('Exception `%s` in file %s at line %s.'),
