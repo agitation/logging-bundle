@@ -74,6 +74,6 @@ class Logentry extends AbstractResponseObject
         $timezone = $this->settingService->getValueOf('agit.timezone');
         $created = clone $logentry->getCreated();
         $created->setTimezone(new DateTimeZone($timezone));
-        $this->created = $this->createObject('common.v1/DateTime', $created);
+        $this->created = $this->createObject('admin.v1/DateTime', $created);
     }
 }
