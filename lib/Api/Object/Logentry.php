@@ -29,7 +29,7 @@ class Logentry extends AbstractResponseObject
 
     /**
      * @Property\Name("Time")
-     * @Property\ObjectType(class="common.v1/DateTime")
+     * @Property\ObjectType(class="admin.v1/DateTime")
      */
     public $created;
 
