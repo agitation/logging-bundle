@@ -36,7 +36,7 @@ class Logentry extends AbstractResponseObject
 
     /**
      * @Property\Name("Category")
-     * @Property\ObjectType(class="LogentryCategory")
+     * @Property\StringType
      */
     public $category;
 

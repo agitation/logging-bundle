@@ -14,10 +14,5 @@ services:
         arguments: [ "@agit.logger" ]
         tags : [{  name: kernel.event_listener, event: kernel.exception, method: logException }]
 
-    agit.logger.seed.logentry_category:
-        private: true
-        class: Agit\LoggingBundle\Service\LogentryCategorySeed
-        tags: [{ name: kernel.event_listener, event: agit.seed, method: registerSeed }]
-
     # alias
     Agit\LoggingBundle\Service\Logger: "@agit.logger"

@@ -40,7 +40,7 @@ class Logger implements LevelInterface
 
     /**
      * @param string $level    a string provided through a PSR LogLevel constant
-     * @param string $category the ID of a registered log category
+     * @param string $category the log category ID
      * @param string $message  the actual log message
      */
     public function addEntry($level, $category, $message)
@@ -55,7 +55,7 @@ class Logger implements LevelInterface
             $logentry = new Logentry();
             $logentry->setCreated(new DateTime());
             $logentry->setLevel($this->availableLevels[$level]);
-            $logentry->setCategory($this->entityManager->getReference('AgitLoggingBundle:LogentryCategory', $category));
+            $logentry->setCategory($category);
             $logentry->setMessage($message);
             $logentry->setUser($this->userService->getCurrentUser() ?: null);
             $this->entityManager->persist($logentry);
@@ -70,7 +70,7 @@ class Logger implements LevelInterface
 
     /**
      * @param string $level    a string provided through a PSR LogLevel constant
-     * @param string $category the ID of a registered log category
+     * @param string $category the log category ID
      * @param string $message  the actual log message
      */
     public function log($level, $category, $message)

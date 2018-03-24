@@ -41,9 +41,8 @@ class Logentry
     protected $level;
 
     /**
-     * @ORM\ManyToOne(targetEntity="LogentryCategory", fetch="EAGER")
-     * @ORM\JoinColumn(onDelete="SET NULL")
-     * Assert\Valid
+     * @ORM\Column(type="string")
+     * Assert\NotBlank
      */
     protected $category;
 
@@ -142,7 +141,7 @@ class Logentry
     /**
      * Get user.
      *
-     * @return User
+     * @return PrimaryUserInterface|null
      */
     public function getUser()
     {
@@ -152,11 +151,11 @@ class Logentry
     /**
      * Set category.
      *
-     * @param LogentryCategory $category
+     * @param string $category
      *
      * @return Logentry
      */
-    public function setCategory(LogentryCategory $category)
+    public function setCategory(string $category)
     {
         $this->category = $category;
 
@@ -166,7 +165,7 @@ class Logentry
     /**
      * Get category.
      *
-     * @return LogentryCategory
+     * @return string
      */
     public function getCategory()
     {
