@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /*
  * @package    agitation/logging-bundle
  * @link       http://github.com/agitation/logging-bundle
@@ -9,7 +10,6 @@ declare(strict_types=1);
 
 namespace Agit\LoggingBundle\Service;
 
-use Agit\BaseBundle\Exception\PublicException;
 use Agit\IntlBundle\Tool\Translate;
 use Psr\Log\LogLevel;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
