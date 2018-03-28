@@ -3,53 +3,6 @@ msgstr ""
 "Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: @AgitLoggingBundle/Service/LogentryCategorySeed.php:21
-msgctxt "logging category"
-msgid "Internal"
-msgstr "Intern"
-
-#: @AgitLoggingBundle/Service/ExceptionLogger.php:32
+#: @AgitLoggingBundle/Service/ExceptionLogger.php:35
 msgid "Exception `%s` in file %s at line %s."
 msgstr "Fehler `%s` in Datei %s in Zeile %s."
-
-#: @AgitLoggingBundle/Api/Object/Logentry.php
-msgid "Time"
-msgstr "Zeit"
-
-#: @AgitLoggingBundle/Api/Object/Logentry.php
-msgid "Category"
-msgstr "Kategorie"
-
-#: @AgitLoggingBundle/Api/Object/Logentry.php
-msgid "User"
-msgstr "Benutzer"
-
-#: @AgitLoggingBundle/Api/Object/Logentry.php
-msgctxt "log level"
-msgid "Level"
-msgstr "Stufe"
-
-#: @AgitLoggingBundle/Api/Object/Logentry.php
-msgctxt "log message"
-msgid "Message"
-msgstr "Meldung"
-
-#: @AgitLoggingBundle/Api/Object/LogentryCategory.php
-msgid "ID"
-msgstr "ID"
-
-#: @AgitLoggingBundle/Api/Object/LogentryCategory.php
-msgid "Name"
-msgstr "Name"
-
-#: @AgitLoggingBundle/Api/Object/User.php
-msgid "E-mail"
-msgstr "E-Mail"
-
-#: @AgitLoggingBundle/Api/Object/SyslogSearch.php
-msgid "Type"
-msgstr "Typ"
-
-#: @AgitLoggingBundle/Api/Object/SyslogSearch.php
-msgid "Search term"
-msgstr "Suchbegriff"
